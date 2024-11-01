@@ -14,6 +14,7 @@
 		40F6683F2CD586D7004A4C97 /* NewsApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40F6683D2CD586D7004A4C97 /* NewsApp.xcdatamodeld */; };
 		40F668412CD586D8004A4C97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40F668402CD586D8004A4C97 /* Assets.xcassets */; };
 		40F668442CD586D8004A4C97 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 40F668432CD586D8004A4C97 /* Base */; };
+		40F6684D2CD58AED004A4C97 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F6684C2CD58AED004A4C97 /* News.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		40F668402CD586D8004A4C97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40F668432CD586D8004A4C97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40F668452CD586D8004A4C97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40F6684C2CD58AED004A4C97 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		40F668332CD586D7004A4C97 /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				40F6684B2CD58AD9004A4C97 /* Model */,
 				40F668342CD586D7004A4C97 /* AppDelegate.swift */,
 				40F668362CD586D7004A4C97 /* SceneDelegate.swift */,
 				40F668382CD586D7004A4C97 /* ViewController.swift */,
@@ -68,6 +71,14 @@
 				40F6683D2CD586D7004A4C97 /* NewsApp.xcdatamodeld */,
 			);
 			path = NewsApp;
+			sourceTree = "<group>";
+		};
+		40F6684B2CD58AD9004A4C97 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				40F6684C2CD58AED004A4C97 /* News.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 				40F668392CD586D7004A4C97 /* ViewController.swift in Sources */,
 				40F668352CD586D7004A4C97 /* AppDelegate.swift in Sources */,
 				40F6683F2CD586D7004A4C97 /* NewsApp.xcdatamodeld in Sources */,
+				40F6684D2CD58AED004A4C97 /* News.swift in Sources */,
 				40F668372CD586D7004A4C97 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
