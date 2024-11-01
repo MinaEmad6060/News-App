@@ -25,6 +25,7 @@
 		40F668612CD59201004A4C97 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668602CD59201004A4C97 /* HomeUseCase.swift */; };
 		40F668672CD59346004A4C97 /* HomeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668662CD59346004A4C97 /* HomeHandler.swift */; };
 		40F668692CD59370004A4C97 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668682CD59370004A4C97 /* HomeView.swift */; };
+		40F6686D2CD596D2004A4C97 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F6686C2CD596D2004A4C97 /* Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		40F668602CD59201004A4C97 /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
 		40F668662CD59346004A4C97 /* HomeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHandler.swift; sourceTree = "<group>"; };
 		40F668682CD59370004A4C97 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		40F6686C2CD596D2004A4C97 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		40F668332CD586D7004A4C97 /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				40F6686A2CD5954B004A4C97 /* Manager */,
 				40F668512CD58F8B004A4C97 /* Utilities */,
 				40F668622CD592DD004A4C97 /* Modules */,
 				40F6685D2CD591DC004A4C97 /* UseCases */,
@@ -175,6 +178,14 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		40F6686A2CD5954B004A4C97 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				40F6686C2CD596D2004A4C97 /* Coordinator.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -246,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40F6686D2CD596D2004A4C97 /* Coordinator.swift in Sources */,
 				40F668572CD5902C004A4C97 /* NewsEndpoint.swift in Sources */,
 				40F668552CD5901C004A4C97 /* NewsURL.swift in Sources */,
 				40F668532CD58FA4004A4C97 /* CSError.swift in Sources */,
