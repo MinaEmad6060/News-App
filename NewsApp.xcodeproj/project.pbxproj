@@ -21,6 +21,8 @@
 		40F668572CD5902C004A4C97 /* NewsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668562CD5902C004A4C97 /* NewsEndpoint.swift */; };
 		40F6685A2CD59141004A4C97 /* NewsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668592CD59141004A4C97 /* NewsRepositoryProtocol.swift */; };
 		40F6685C2CD5914E004A4C97 /* NewsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F6685B2CD5914E004A4C97 /* NewsRepository.swift */; };
+		40F6685F2CD591F9004A4C97 /* HomeUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F6685E2CD591F9004A4C97 /* HomeUseCaseProtocol.swift */; };
+		40F668612CD59201004A4C97 /* HomeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668602CD59201004A4C97 /* HomeUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		40F668562CD5902C004A4C97 /* NewsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsEndpoint.swift; sourceTree = "<group>"; };
 		40F668592CD59141004A4C97 /* NewsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		40F6685B2CD5914E004A4C97 /* NewsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepository.swift; sourceTree = "<group>"; };
+		40F6685E2CD591F9004A4C97 /* HomeUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCaseProtocol.swift; sourceTree = "<group>"; };
+		40F668602CD59201004A4C97 /* HomeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 		40F668332CD586D7004A4C97 /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				40F6685D2CD591DC004A4C97 /* UseCases */,
 				40F668582CD59122004A4C97 /* Repositeries */,
 				40F668512CD58F8B004A4C97 /* Utilities */,
 				40F6684E2CD58C4A004A4C97 /* Networking */,
@@ -121,6 +126,15 @@
 				40F6685B2CD5914E004A4C97 /* NewsRepository.swift */,
 			);
 			path = Repositeries;
+			sourceTree = "<group>";
+		};
+		40F6685D2CD591DC004A4C97 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				40F6685E2CD591F9004A4C97 /* HomeUseCaseProtocol.swift */,
+				40F668602CD59201004A4C97 /* HomeUseCase.swift */,
+			);
+			path = UseCases;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,9 +216,11 @@
 				40F6683F2CD586D7004A4C97 /* NewsApp.xcdatamodeld in Sources */,
 				40F6685A2CD59141004A4C97 /* NewsRepositoryProtocol.swift in Sources */,
 				40F6684D2CD58AED004A4C97 /* News.swift in Sources */,
+				40F6685F2CD591F9004A4C97 /* HomeUseCaseProtocol.swift in Sources */,
 				40F668502CD58EA6004A4C97 /* GenericNetworkService.swift in Sources */,
 				40F6685C2CD5914E004A4C97 /* NewsRepository.swift in Sources */,
 				40F668372CD586D7004A4C97 /* SceneDelegate.swift in Sources */,
+				40F668612CD59201004A4C97 /* HomeUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
