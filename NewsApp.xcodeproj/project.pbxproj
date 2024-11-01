@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		40F668352CD586D7004A4C97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668342CD586D7004A4C97 /* AppDelegate.swift */; };
 		40F668372CD586D7004A4C97 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668362CD586D7004A4C97 /* SceneDelegate.swift */; };
-		40F668392CD586D7004A4C97 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668382CD586D7004A4C97 /* ViewController.swift */; };
 		40F6683C2CD586D7004A4C97 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 40F6683B2CD586D7004A4C97 /* Base */; };
 		40F6683F2CD586D7004A4C97 /* NewsApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40F6683D2CD586D7004A4C97 /* NewsApp.xcdatamodeld */; };
 		40F668412CD586D8004A4C97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40F668402CD586D8004A4C97 /* Assets.xcassets */; };
@@ -26,13 +25,14 @@
 		40F668672CD59346004A4C97 /* HomeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668662CD59346004A4C97 /* HomeHandler.swift */; };
 		40F668692CD59370004A4C97 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F668682CD59370004A4C97 /* HomeView.swift */; };
 		40F6686D2CD596D2004A4C97 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F6686C2CD596D2004A4C97 /* Coordinator.swift */; };
+		40F6686F2CD59B42004A4C97 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F6686E2CD59B42004A4C97 /* HomeViewController.swift */; };
+		40F668712CD59B4F004A4C97 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40F668702CD59B4F004A4C97 /* HomeView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		40F668312CD586D7004A4C97 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40F668342CD586D7004A4C97 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40F668362CD586D7004A4C97 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		40F668382CD586D7004A4C97 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		40F6683B2CD586D7004A4C97 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		40F6683E2CD586D7004A4C97 /* NewsApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NewsApp.xcdatamodel; sourceTree = "<group>"; };
 		40F668402CD586D8004A4C97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,6 +50,8 @@
 		40F668662CD59346004A4C97 /* HomeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHandler.swift; sourceTree = "<group>"; };
 		40F668682CD59370004A4C97 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		40F6686C2CD596D2004A4C97 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		40F6686E2CD59B42004A4C97 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		40F668702CD59B4F004A4C97 /* HomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +93,6 @@
 				40F6684B2CD58AD9004A4C97 /* Model */,
 				40F668342CD586D7004A4C97 /* AppDelegate.swift */,
 				40F668362CD586D7004A4C97 /* SceneDelegate.swift */,
-				40F668382CD586D7004A4C97 /* ViewController.swift */,
 				40F6683A2CD586D7004A4C97 /* Main.storyboard */,
 				40F668402CD586D8004A4C97 /* Assets.xcassets */,
 				40F668422CD586D8004A4C97 /* LaunchScreen.storyboard */,
@@ -173,7 +174,9 @@
 		40F668652CD592F6004A4C97 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				40F6686E2CD59B42004A4C97 /* HomeViewController.swift */,
 				40F668682CD59370004A4C97 /* HomeView.swift */,
+				40F668702CD59B4F004A4C97 /* HomeView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40F668412CD586D8004A4C97 /* Assets.xcassets in Resources */,
+				40F668712CD59B4F004A4C97 /* HomeView.xib in Resources */,
 				40F668442CD586D8004A4C97 /* Base in Resources */,
 				40F6683C2CD586D7004A4C97 /* Base in Resources */,
 			);
@@ -262,13 +266,13 @@
 				40F668552CD5901C004A4C97 /* NewsURL.swift in Sources */,
 				40F668532CD58FA4004A4C97 /* CSError.swift in Sources */,
 				40F668692CD59370004A4C97 /* HomeView.swift in Sources */,
-				40F668392CD586D7004A4C97 /* ViewController.swift in Sources */,
 				40F668352CD586D7004A4C97 /* AppDelegate.swift in Sources */,
 				40F6683F2CD586D7004A4C97 /* NewsApp.xcdatamodeld in Sources */,
 				40F6685A2CD59141004A4C97 /* NewsRepositoryProtocol.swift in Sources */,
 				40F6684D2CD58AED004A4C97 /* News.swift in Sources */,
 				40F6685F2CD591F9004A4C97 /* HomeUseCaseProtocol.swift in Sources */,
 				40F668672CD59346004A4C97 /* HomeHandler.swift in Sources */,
+				40F6686F2CD59B42004A4C97 /* HomeViewController.swift in Sources */,
 				40F668502CD58EA6004A4C97 /* GenericNetworkService.swift in Sources */,
 				40F6685C2CD5914E004A4C97 /* NewsRepository.swift in Sources */,
 				40F668372CD586D7004A4C97 /* SceneDelegate.swift in Sources */,

@@ -65,7 +65,7 @@ class HomeView: UIView {
             view.topAnchor.constraint(equalTo: self.topAnchor),
             view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "NewsCell")
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "NewsCell")
 
     }
     
