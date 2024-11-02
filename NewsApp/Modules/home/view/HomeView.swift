@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 import os
-
+import Kingfisher
 
 class HomeView: UIView{
     
@@ -23,14 +23,6 @@ class HomeView: UIView{
     private var cancellables = Set<AnyCancellable>()
     var coordinator: Coordinator?
 
-//    private let errorLabel: UILabel = {
-//        let label = UILabel()
-//        label.textColor = .red
-//        label.font = UIFont.preferredFont(forTextStyle: .body)
-//        label.isHidden = true
-//        label.textAlignment = .center
-//        return label
-//    }()
     // MARK: - Initializer
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -138,42 +130,22 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "articleCollectionViewCell", for: indexPath) as! ArticleCollectionViewCell
         
-        cell.articleTitle.text = handler.homeArticles[indexPath.item].title
-        cell.articleAuthor.text = handler.homeArticles[indexPath.item].author
-        cell.articleDetails.text = handler.homeArticles[indexPath.item].content
-        loadImage(for: cell, at: indexPath)
-
+        cell.articleTitle.text = handler.homeArticles[indexPath.item].title ?? "Not Found"
+        cell.articleAuthor.text = handler.homeArticles[indexPath.item].author ?? "Not Found"
+        cell.articleDetails.text = handler.homeArticles[indexPath.item].content ?? "Not Found"
+        if let urlString = handler.homeArticles[indexPath.row].urlToImage,
+           let url = URL(string: urlString) {
+            cell.articleImage.kf.setImage(with: url)
+        } else {
+            cell.articleImage.image = UIImage(systemName: "folder.fill")
+        }
         return cell
     }
-
-    func loadImage(for cell: ArticleCollectionViewCell, at indexPath: IndexPath) {
-        guard let url = URL(string: handler.homeArticles[indexPath.item].urlToImage ?? "") else {
-                return
-            }
-
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    print("Error fetching image: \(error)")
-                    return
-                }
-
-                guard let data = data, let image = UIImage(data: data) else {
-                    print("Failed to convert data to image")
-                    return
-                }
-
-                // Update UI on the main thread
-                DispatchQueue.main.async {
-                    // Make sure the cell is still visible
-                    if let currentCell = self.articlesCollectionView.cellForItem(at: indexPath) as? ArticleCollectionViewCell {
-                        currentCell.articleImage.image = image
-                    }
-                }
-            }
-
-            task.resume()
-        }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+
 }
 
 extension UIView {
