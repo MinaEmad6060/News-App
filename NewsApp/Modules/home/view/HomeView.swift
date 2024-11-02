@@ -26,6 +26,7 @@ class HomeView: UIView{
     var article = ArticleViewData()
     let dateFormatter = DateFormatter()
     @Published var searchQuery = "apple"
+    @Published var dateQuery = ""
 
     // MARK: - Initializer
     required init?(coder aDecoder: NSCoder) {
@@ -111,12 +112,23 @@ class HomeView: UIView{
             .store(in: &cancellables)
     }
     
+    
+    @objc private func datePickerChanged() {
+        let selectedDate = articleDatePicker.date
+        dateQuery = formatDateToString(date: selectedDate)
+        Task {
+            await handler?.getHomeArticles(searchQuery: searchQuery == "" ? "apple" : searchQuery, fromDate: dateQuery)
+        }
+    }
+    
     // MARK: - Date Picker
     private func initDatePicker() {
+        articleDatePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+
         articleDatePicker.datePickerMode = .date
         
         articleDatePicker.date = Date()
-        articleDatePicker.minimumDate = Date()
+        articleDatePicker.maximumDate = Date()
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -131,6 +143,8 @@ class HomeView: UIView{
         let selectedDate = dateFormatter.string(from: sender.date)
         print("Selected date: \(selectedDate)")
 
+        dateQuery = selectedDate
+        
         self.getViewController()?.dismiss(animated: false, completion: nil)
     }
     // MARK: - Search
@@ -145,13 +159,16 @@ class HomeView: UIView{
                 // Use Task to call the async function
                 Task {
                     let searchText = newValue.isEmpty ? "apple" : newValue
-                    await self?.handler?.getHomeArticles(searchQuery: searchText)
+                    await self?.handler?.getHomeArticles(searchQuery: searchText, fromDate: self?.dateQuery ?? "")
                 }
             }
             .store(in: &cancellables)
     }
 
-
+    private func formatDateToString(date: Date) -> String {
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date)
+    }
     
     @IBAction func btnFavourites(_ sender: Any) {
         let favouriteArticlesViewController = FavouriteArticlesViewController()
@@ -172,7 +189,6 @@ class HomeView: UIView{
 
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        self.logger.info("homeArticles-count \(self.handler?.homeArticles.count)")
         return handler?.homeArticles.count ?? 0
     }
     

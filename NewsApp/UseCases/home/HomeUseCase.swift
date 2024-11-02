@@ -15,8 +15,8 @@ class HomeUseCase: HomeUseCaseProtocol {
         self.repository = repository
     }
     
-    func fetchNewsArticles(searchQuery: String) async throws -> News {
-        return try await repository.fetchNewsList(searchQuery: searchQuery)
+    func fetchNewsArticles(searchQuery: String, fromDate: String) async throws -> News {
+        return try await repository.fetchNewsList(searchQuery: searchQuery, fromDate: fromDate)
     }
   
 }

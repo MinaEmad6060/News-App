@@ -53,7 +53,13 @@ struct NewsURL {
 //        return newsURL(endpoint: .everything, parameters: ["q":"apple"])
 //    }
 
-    static func newsListUrl(with searchQuery: String) -> URL? {
-        return newsURL(endpoint: .everything, parameters: ["q": searchQuery])
+    static func newsListUrl(with searchQuery: String, fromDate: String) -> URL? {
+        // Here, you add the fromDate parameter to the parameters dictionary
+        print("date \(fromDate)")
+        let parameters: [String: String] = [
+            "q": searchQuery,
+            "from": fromDate // Add the fromDate parameter
+        ]
+        return newsURL(endpoint: .everything, parameters: parameters)
     }
 }
