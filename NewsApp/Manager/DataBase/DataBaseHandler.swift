@@ -31,22 +31,37 @@ class DataBaseHandler {
         return favouriteArticles
     }
     
-    func addItem(article: ArticleViewData) {
-        let favouriteArticle = FavouriteArticle(context: context)
-        favouriteArticle.title = article.title
-        favouriteArticle.author = article.author
-        favouriteArticle.content = article.content
-        favouriteArticle.urlToImage = article.urlToImage
+    func addItem(article: ArticleViewData) -> Bool{
+        var isAddedSuccessfully = true
+        let fetchRequest: NSFetchRequest<FavouriteArticle> = FavouriteArticle.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "title == %@", article.title ?? "")
         
         do {
-            try context.save()
-            DispatchQueue.main.async {
-                print("Added favouriteArticle: \(favouriteArticle)")
+            let existingArticles = try context.fetch(fetchRequest)
+            
+            if existingArticles.isEmpty {
+                let favouriteArticle = FavouriteArticle(context: context)
+                favouriteArticle.title = article.title
+                favouriteArticle.author = article.author
+                favouriteArticle.content = article.content
+                favouriteArticle.urlToImage = article.urlToImage
+                
+                try context.save()
+                DispatchQueue.main.async {
+                    isAddedSuccessfully = true
+                    print("Added favouriteArticle flag: \(isAddedSuccessfully)")
+                }
+            } else {
+                isAddedSuccessfully = false
+                print("Article already exists in favourites")
             }
         } catch {
             print("Failed to save article: \(error.localizedDescription)")
         }
+        
+        return isAddedSuccessfully
     }
+
     
     
 //    func deleteItem(article: FavouriteArticle) {

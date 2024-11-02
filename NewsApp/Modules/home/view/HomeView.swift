@@ -126,7 +126,7 @@ class HomeView: UIView{
         articleDatePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
 
         articleDatePicker.datePickerMode = .date
-        
+        articleDatePicker.tintColor = .blue
         articleDatePicker.date = Date()
         articleDatePicker.maximumDate = Date()
 

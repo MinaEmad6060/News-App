@@ -82,14 +82,26 @@ class ArticleView: UIView{
         articleAuthor.clipsToBounds = true
         articleDetails.text = article?.content
         
+
         if let urlString = article?.urlToImage,
            let url = URL(string: urlString) {
-            articleImage.kf.setImage(with: url)
+            articleImage.kf.setImage(
+                with: url,
+                placeholder: UIImage(systemName: "folder.fill")
+            )
         } else {
             articleImage.image = UIImage(systemName: "folder.fill")
         }
     }
 
+    func showAlert(in viewController: UIViewController, title: String, message: String, handler: @escaping (UIAlertAction)->()) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: handler)
+        
+        alert.addAction(cancelAction)
+        viewController.present(alert, animated: true, completion: nil)
+    }
     
     
    
@@ -98,7 +110,16 @@ class ArticleView: UIView{
     }
     
     @IBAction func btnAddToFavourites(_ sender: Any) {
-        DataBaseHandler.shared.addItem(article: article ?? ArticleViewData())
+        let isAlreadyAdded =  DataBaseHandler.shared.addItem(article: article ?? ArticleViewData())
+        print("btnAddToFavourites - flag \(isAlreadyAdded)")
+
+        if isAlreadyAdded {
+            showAlert(in: self.getViewController() ?? UIViewController(), title: article?.author ?? "", message: "Added to favourite successfully"){_ in
+                self.coordinator?.pop()
+            }
+        }else{
+            showAlert(in: self.getViewController() ?? UIViewController(), title: article?.author ?? "", message: "This article already in favourites"){_ in }
+        }
     }
     
     

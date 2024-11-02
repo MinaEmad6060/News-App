@@ -131,9 +131,13 @@ extension FavouriteView: UICollectionViewDelegate, UICollectionViewDataSource{
         cell.articleTitle.text = favArticles[indexPath.item].title ?? "Not Found"
         cell.articleAuthor.text = favArticles[indexPath.item].author ?? "Not Found"
         cell.articleDetails.text = favArticles[indexPath.item].content ?? "Not Found"
+        
         if let urlString = favArticles[indexPath.row].urlToImage,
            let url = URL(string: urlString) {
-            cell.articleImage.kf.setImage(with: url)
+            cell.articleImage.kf.setImage(
+                with: url,
+                placeholder: UIImage(systemName: "folder.fill")
+            )
         } else {
             cell.articleImage.image = UIImage(systemName: "folder.fill")
         }
