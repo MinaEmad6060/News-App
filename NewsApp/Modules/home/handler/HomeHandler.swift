@@ -19,20 +19,20 @@ extension HomeView {
         
         @Published var homeArticles: [Article] = []
         @Published var errorMessage: String?
-        
+
         private let useCase: HomeUseCaseProtocol
         
-        init(useCase: HomeUseCaseProtocol = HomeUseCase()) {
+        init(useCase: HomeUseCaseProtocol = HomeUseCase(), searchQuery: String, fromDate: String) {
             self.useCase = useCase
             Task {
-                await self.getHomeArticles()
+                await self.getHomeArticles(searchQuery: searchQuery)
             }
         }
         
         //MARK: - getHomeArticles
-        func getHomeArticles() async {
+        func getHomeArticles(searchQuery: String) async {
             do {
-                let articles = try await useCase.fetchNewsArticles()
+                let articles = try await useCase.fetchNewsArticles(searchQuery: searchQuery)
                 homeArticles = articles.articles ?? []
             } catch {
                 handleError(error)

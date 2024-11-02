@@ -15,14 +15,18 @@ class HomeView: UIView{
     // MARK: - Outlets
     @IBOutlet var view: UIView!
     @IBOutlet weak var articlesCollectionView: UICollectionView!
+    @IBOutlet weak var articleSearchBar: UISearchBar!
+    @IBOutlet weak var articleDatePicker: UIDatePicker!
     
     // MARK: - Properties
     private let logger = Logger(subsystem: "com.NewsApp.View", category: "View")
-    private var handler = HomeHandler()
+    private var handler: HomeHandler?
     private var cancellables = Set<AnyCancellable>()
     var coordinator: Coordinator?
     var article = ArticleViewData()
-    
+    let dateFormatter = DateFormatter()
+    @Published var searchQuery = "apple"
+
     // MARK: - Initializer
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,6 +41,7 @@ class HomeView: UIView{
     }
     
     private func commonInit() {
+        handler = HomeHandler(searchQuery: self.searchQuery, fromDate: "")
         let nib = UINib(nibName: "HomeView", bundle: nil)
         guard let loadedView = nib.instantiate(withOwner: self, options: nil).first as? UIView else {
             return
@@ -52,8 +57,9 @@ class HomeView: UIView{
             view.topAnchor.constraint(equalTo: self.topAnchor),
             view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-        
+        initDatePicker()
         initCollectionView()
+        setupSearchBar()
     }
     
     private func initCollectionView(){
@@ -86,14 +92,14 @@ class HomeView: UIView{
     
     // MARK: - Bindings
     private func setupBindings() {
-        handler.$homeArticles
+        handler?.$homeArticles
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.articlesCollectionView.reloadData()
             }
             .store(in: &cancellables)
         
-        handler.$errorMessage
+        handler?.$errorMessage
             .receive(on: DispatchQueue.main)
             .sink { /*[weak self]*/ errorMessage in
 //                if let errorMessage = errorMessage {
@@ -105,6 +111,46 @@ class HomeView: UIView{
             .store(in: &cancellables)
     }
     
+    // MARK: - Date Picker
+    private func initDatePicker() {
+        articleDatePicker.datePickerMode = .date
+        
+        articleDatePicker.date = Date()
+        articleDatePicker.minimumDate = Date()
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        articleDatePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+    }
+
+    @objc func dateChanged(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        let selectedDate = dateFormatter.string(from: sender.date)
+        print("Selected date: \(selectedDate)")
+
+        self.getViewController()?.dismiss(animated: false, completion: nil)
+    }
+    // MARK: - Search
+
+    private func setupSearchBar() {
+        articleSearchBar.delegate = self
+        // Combine to observe searchQuery changes
+        $searchQuery
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] newValue in
+                // Use Task to call the async function
+                Task {
+                    let searchText = newValue.isEmpty ? "apple" : newValue
+                    await self?.handler?.getHomeArticles(searchQuery: searchText)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
 
     
     @IBAction func btnFavourites(_ sender: Any) {
@@ -124,19 +170,19 @@ class HomeView: UIView{
 }
 
 
-extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
+extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.logger.info("homeArticles-count \(self.handler.homeArticles.count)")
-        return handler.homeArticles.count
+//        self.logger.info("homeArticles-count \(self.handler?.homeArticles.count)")
+        return handler?.homeArticles.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "articleCollectionViewCell", for: indexPath) as! ArticleCollectionViewCell
         
-        cell.articleTitle.text = handler.homeArticles[indexPath.item].title ?? "Not Found"
-        cell.articleAuthor.text = handler.homeArticles[indexPath.item].author ?? "Not Found"
-        cell.articleDetails.text = handler.homeArticles[indexPath.item].content ?? "Not Found"
-        if let urlString = handler.homeArticles[indexPath.row].urlToImage,
+        cell.articleTitle.text = handler?.homeArticles[indexPath.item].title ?? "Not Found"
+        cell.articleAuthor.text = handler?.homeArticles[indexPath.item].author ?? "Not Found"
+        cell.articleDetails.text = handler?.homeArticles[indexPath.item].content ?? "Not Found"
+        if let urlString = handler?.homeArticles[indexPath.row].urlToImage,
            let url = URL(string: urlString) {
             cell.articleImage.kf.setImage(with: url)
         } else {
@@ -148,16 +194,20 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        article.title = handler.homeArticles[indexPath.item].title ?? "Not Found"
-        article.author = handler.homeArticles[indexPath.item].author ?? "Not Found"
-        article.content = handler.homeArticles[indexPath.item].content ?? "Not Found"
-        article.urlToImage = handler.homeArticles[indexPath.item].urlToImage ?? "Not Found"
+        article.title = handler?.homeArticles[indexPath.item].title ?? "Not Found"
+        article.author = handler?.homeArticles[indexPath.item].author ?? "Not Found"
+        article.content = handler?.homeArticles[indexPath.item].content ?? "Not Found"
+        article.urlToImage = handler?.homeArticles[indexPath.item].urlToImage ?? "Not Found"
         
         let articleDetailsViewController = ArticleDetailsViewController()
         articleDetailsViewController.article = article
         articleDetailsViewController.coordinator = coordinator
         self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
         self.getViewController()?.navigationController?.pushViewController(articleDetailsViewController, animated: true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchQuery = searchText
     }
 
 }

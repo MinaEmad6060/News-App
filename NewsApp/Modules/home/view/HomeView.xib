@@ -9,6 +9,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeView" customModule="NewsApp" customModuleProvider="target">
             <connections>
+                <outlet property="articleDatePicker" destination="Ia5-Ta-4he" id="gsY-Df-0QE"/>
+                <outlet property="articleSearchBar" destination="cjF-t6-v7J" id="oDP-KJ-f9D"/>
                 <outlet property="articlesCollectionView" destination="Qj2-yl-pmj" id="ReT-ii-qqR"/>
                 <outlet property="view" destination="iN0-l3-epB" id="noA-YY-FVs"/>
             </connections>

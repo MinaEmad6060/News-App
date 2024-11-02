@@ -8,5 +8,5 @@
 import Foundation
 
 protocol HomeUseCaseProtocol {
-    func fetchNewsArticles() async throws -> News
+    func fetchNewsArticles(searchQuery: String) async throws -> News
 }

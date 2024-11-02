@@ -49,8 +49,11 @@ struct NewsURL {
 
     
     
-    static var newsListUrl: URL? {
-        return newsURL(endpoint: .everything, parameters: ["q":"apple"])
-    }
+//    static var newsListUrl: URL? {
+//        return newsURL(endpoint: .everything, parameters: ["q":"apple"])
+//    }
 
+    static func newsListUrl(with searchQuery: String) -> URL? {
+        return newsURL(endpoint: .everything, parameters: ["q": searchQuery])
+    }
 }

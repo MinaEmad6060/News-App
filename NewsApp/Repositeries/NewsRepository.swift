@@ -9,8 +9,8 @@ import Foundation
 
 class NewsRepository : NewsRepositoryProtocol {
     
-    func fetchNewsList() async throws -> News {
-        guard let url = NewsURL.newsListUrl else { throw CSError.invalidURL }
+    func fetchNewsList(searchQuery: String) async throws -> News {
+        guard let url = NewsURL.newsListUrl(with: searchQuery) else { throw CSError.invalidURL }
         return try await GenericNetworkService.getData(from: url)
     }
 }
