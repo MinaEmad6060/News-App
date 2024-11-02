@@ -40,7 +40,6 @@ class FavouriteView: UIView{
         super.init(frame: .zero)
         commonInit()
         articlesCollectionView.reloadData()
-        print("self.favArticles \(self.favArticles.count)")
     }
     
     private func commonInit() {
@@ -64,56 +63,34 @@ class FavouriteView: UIView{
         initArticlesList()
     }
     
-    private func initArticlesList(){
-        let articles = DataBaseHandler.shared.getAllItems()
-        var favArticle = ArticleViewData()
-        for i in 0..<articles.count{
-            favArticle.title = articles[i].title
-            favArticle.author = articles[i].author
-            favArticle.content = articles[i].content
-            favArticle.urlToImage = articles[i].urlToImage
-            self.favArticles.append(favArticle)
-            print("articles[\(i)] \(articles[i].author ?? "none")")
+    private func initArticlesList() {
+        do {
+            let articles = try DataBaseHandler.shared.getAllItems()
+            var favArticle = ArticleViewData()
+            for article in articles {
+                favArticle.title = article.title
+                favArticle.author = article.author
+                favArticle.content = article.content
+                favArticle.urlToImage = article.urlToImage
+                self.favArticles.append(favArticle)
+            }
+            articlesCollectionView.reloadData()
+        } catch let error as CSError {
+            logger.error("\(error.rawValue)")
+        } catch {
+            logger.error("An unexpected error occurred while fetching")
         }
-        articlesCollectionView.reloadData()
     }
-    
-    private func initCollectionView(){
-        articlesCollectionView.delegate = self
-        articlesCollectionView.dataSource = self
-        
-        let customCell = UINib(nibName: "ArticleCollectionViewCell", bundle: nil)
-        articlesCollectionView.register(customCell, forCellWithReuseIdentifier: "articleCollectionViewCell")
-        
-        setupCollectionViewDimensions()
-    }
-    
-    
-    private func setupCollectionViewDimensions(){
-        let layout = UICollectionViewFlowLayout()
-        let numberOfColumns: CGFloat = 2
-        let spacing: CGFloat = 4
 
-        let totalSpacing = (numberOfColumns - 1) * spacing
-        let width = (articlesCollectionView.frame.width - totalSpacing) / numberOfColumns
-        layout.itemSize = CGSize(width: width, height: 300)
+    // MARK: - Handle Buttons
 
-        layout.minimumInteritemSpacing = spacing
-        layout.minimumLineSpacing = spacing
-
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-
-        articlesCollectionView.collectionViewLayout = layout
-    }
-    
-  
-    
     @IBAction func btnBack(_ sender: Any) {
         coordinator?.pop()
     }
     
 }
 
+// MARK: - Collection View
 
 extension FavouriteView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -157,6 +134,34 @@ extension FavouriteView: UICollectionViewDelegate, UICollectionViewDataSource{
         articleDetailsViewController.coordinator = coordinator
         self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
         self.getViewController()?.navigationController?.pushViewController(articleDetailsViewController, animated: true)
+    }
+    
+    private func initCollectionView(){
+        articlesCollectionView.delegate = self
+        articlesCollectionView.dataSource = self
+        
+        let customCell = UINib(nibName: "ArticleCollectionViewCell", bundle: nil)
+        articlesCollectionView.register(customCell, forCellWithReuseIdentifier: "articleCollectionViewCell")
+        
+        setupCollectionViewDimensions()
+    }
+    
+    
+    private func setupCollectionViewDimensions(){
+        let layout = UICollectionViewFlowLayout()
+        let numberOfColumns: CGFloat = 2
+        let spacing: CGFloat = 4
+
+        let totalSpacing = (numberOfColumns - 1) * spacing
+        let width = (articlesCollectionView.frame.width - totalSpacing) / numberOfColumns
+        layout.itemSize = CGSize(width: width, height: 300)
+
+        layout.minimumInteritemSpacing = spacing
+        layout.minimumLineSpacing = spacing
+
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+
+        articlesCollectionView.collectionViewLayout = layout
     }
 
 }

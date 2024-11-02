@@ -10,11 +10,9 @@ import Foundation
 struct NewsURL {
     
     private static let baseNewsURLString = "https://newsapi.org/v2/"
-    private static let apiKey = "d9bf8e6d78424fb185fa42e4db103e8a"
+    private static let apiKey = "3d5e47f5f8d343039a38d03cb7928d08"
     
-
     private static func newsURL(endpoint: NewsEndpoint, parameters: [String: String]?) -> URL? {
-        
         
         guard var components = URLComponents(string: baseNewsURLString + endpoint.rawValue) else {
             return nil
@@ -47,18 +45,11 @@ struct NewsURL {
         return url
     }
 
-    
-    
-//    static var newsListUrl: URL? {
-//        return newsURL(endpoint: .everything, parameters: ["q":"apple"])
-//    }
-
+   
     static func newsListUrl(with searchQuery: String, fromDate: String) -> URL? {
-        // Here, you add the fromDate parameter to the parameters dictionary
-        print("date \(fromDate)")
         let parameters: [String: String] = [
             "q": searchQuery,
-            "from": fromDate // Add the fromDate parameter
+            "from": fromDate
         ]
         return newsURL(endpoint: .everything, parameters: parameters)
     }

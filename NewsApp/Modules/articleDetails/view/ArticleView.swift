@@ -15,12 +15,10 @@ class ArticleView: UIView{
     // MARK: - Outlets
     @IBOutlet var view: UIView!
     @IBOutlet weak var mainBgView: UIView!
-    
     @IBOutlet weak var articleImage: UIImageView!
     @IBOutlet weak var articleTitle: UILabel!
     @IBOutlet weak var articleAuthor: UILabel!
     @IBOutlet weak var articleDetails: UITextView!
-    
     @IBOutlet weak var btnAddToFavouritesOutlet: UIButton!
     
     // MARK: - Properties
@@ -47,7 +45,6 @@ class ArticleView: UIView{
         super.init(frame: .zero)
         commonInit()
         setupUI()
-        print("self.article \(self.article?.title ?? "none")")
     }
     
     private func commonInit() {
@@ -94,6 +91,7 @@ class ArticleView: UIView{
         }
     }
 
+    // MARK: - Alert
     func showAlert(in viewController: UIViewController, title: String, message: String, handler: @escaping (UIAlertAction)->()) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -104,23 +102,33 @@ class ArticleView: UIView{
     }
     
     
-   
+    // MARK: - Handle Buttons
     @IBAction func btnBack(_ sender: Any) {
         coordinator?.pop()
     }
     
     @IBAction func btnAddToFavourites(_ sender: Any) {
-        let isAlreadyAdded =  DataBaseHandler.shared.addItem(article: article ?? ArticleViewData())
-        print("btnAddToFavourites - flag \(isAlreadyAdded)")
-
-        if isAlreadyAdded {
-            showAlert(in: self.getViewController() ?? UIViewController(), title: article?.author ?? "", message: "Added to favourite successfully"){_ in
-                self.coordinator?.pop()
+        guard let article = article else {
+            showAlert(in: self.getViewController() ?? UIViewController(), title: "Error", message: "Invalid article data.") { _ in }
+            return
+        }
+        
+        do {
+            let isAlreadyAdded = try DataBaseHandler.shared.addItem(article: article)
+            
+            if isAlreadyAdded {
+                showAlert(in: self.getViewController() ?? UIViewController(), title: article.author ?? "", message: "Added to favourite successfully") { _ in
+                    self.coordinator?.pop()
+                }
+            } else {
+                showAlert(in: self.getViewController() ?? UIViewController(), title: article.author ?? "", message: "This article is already in favourites") { _ in }
             }
-        }else{
-            showAlert(in: self.getViewController() ?? UIViewController(), title: article?.author ?? "", message: "This article already in favourites"){_ in }
+        } catch let error as CSError {
+            showAlert(in: self.getViewController() ?? UIViewController(), title: "Error", message: error.rawValue) { _ in }
+        } catch {
+            showAlert(in: self.getViewController() ?? UIViewController(), title: "Error", message: "An unexpected error occurred.") { _ in }
         }
     }
-    
+
     
 }

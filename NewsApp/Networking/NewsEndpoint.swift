@@ -16,4 +16,5 @@ enum NewsEndpoint {
             case .everything: return "everything"
         }
     }
+    
 }

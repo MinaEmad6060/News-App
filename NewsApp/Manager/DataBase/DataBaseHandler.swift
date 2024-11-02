@@ -8,30 +8,30 @@
 import Foundation
 import CoreData
 import UIKit
+import os
 
 class DataBaseHandler {
     
-    static let shared = DataBaseHandler()
+    private let logger = Logger(subsystem: "com.NewsApp.networking", category: "database")
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    func getAllItems() -> [FavouriteArticle] {
+    static let shared = DataBaseHandler()
+
+    func getAllItems() throws -> [FavouriteArticle] {
         var favouriteArticles = [FavouriteArticle]()
         
         let fetchRequest: NSFetchRequest<FavouriteArticle> = FavouriteArticle.fetchRequest()
         
         do {
             favouriteArticles = try context.fetch(fetchRequest)
-            DispatchQueue.main.async {
-                print("Fetched favouriteArticles: \(favouriteArticles)")
-            }
         } catch {
-            print("Failed to fetch articles: \(error.localizedDescription)")
+            logger.error("Failed to fetch articles: \(error.localizedDescription)")
+            throw CSError.failedToFetch
         }
         
         return favouriteArticles
     }
     
-    func addItem(article: ArticleViewData) -> Bool{
+    func addItem(article: ArticleViewData) throws -> Bool{
         var isAddedSuccessfully = true
         let fetchRequest: NSFetchRequest<FavouriteArticle> = FavouriteArticle.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "title == %@", article.title ?? "")
@@ -49,32 +49,16 @@ class DataBaseHandler {
                 try context.save()
                 DispatchQueue.main.async {
                     isAddedSuccessfully = true
-                    print("Added favouriteArticle flag: \(isAddedSuccessfully)")
                 }
             } else {
                 isAddedSuccessfully = false
-                print("Article already exists in favourites")
             }
         } catch {
-            print("Failed to save article: \(error.localizedDescription)")
+            logger.error("Failed to save article: \(error.localizedDescription)")
+            throw CSError.failedToSave
         }
         
         return isAddedSuccessfully
     }
-
-    
-    
-//    func deleteItem(article: FavouriteArticle) {
-//        context.delete(article)
-//        
-//        do {
-//            try context.save()
-//            DispatchQueue.main.async {
-//                print("Deleted favouriteArticle: \(article)")
-//            }
-//        } catch {
-//            print("Failed to delete article: \(error.localizedDescription)")
-//        }
-//    }
     
 }

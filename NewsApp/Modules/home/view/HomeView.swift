@@ -17,18 +17,22 @@ class HomeView: UIView{
     @IBOutlet weak var articlesCollectionView: UICollectionView!
     @IBOutlet weak var articleSearchBar: UISearchBar!
     @IBOutlet weak var articleDatePicker: UIDatePicker!
-
     @IBOutlet weak var noDataView: NoDataView!
     
     // MARK: - Properties
-    private let logger = Logger(subsystem: "com.NewsApp.View", category: "View")
+    @Published var searchQuery = "apple"
+    @Published var dateQuery = ""
+    
     private var handler: HomeHandler?
     private var cancellables = Set<AnyCancellable>()
+    
+    private let logger = Logger(subsystem: "com.NewsApp.View", category: "View")
+    
     var coordinator: Coordinator?
     var article = ArticleViewData()
     let dateFormatter = DateFormatter()
-    @Published var searchQuery = "apple"
-    @Published var dateQuery = ""
+    
+    
 
     // MARK: - Initializer
     required init?(coder aDecoder: NSCoder) {
@@ -60,38 +64,12 @@ class HomeView: UIView{
             view.topAnchor.constraint(equalTo: self.topAnchor),
             view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+        
         initDatePicker()
         initCollectionView()
         setupSearchBar()
     }
     
-    private func initCollectionView(){
-        articlesCollectionView.delegate = self
-        articlesCollectionView.dataSource = self
-        
-        let customCell = UINib(nibName: "ArticleCollectionViewCell", bundle: nil)
-        articlesCollectionView.register(customCell, forCellWithReuseIdentifier: "articleCollectionViewCell")
-        
-        setupCollectionViewDimensions()
-    }
-    
-    
-    private func setupCollectionViewDimensions(){
-        let layout = UICollectionViewFlowLayout()
-        let numberOfColumns: CGFloat = 2
-        let spacing: CGFloat = 4
-
-        let totalSpacing = (numberOfColumns - 1) * spacing
-        let width = (articlesCollectionView.frame.width - totalSpacing) / numberOfColumns
-        layout.itemSize = CGSize(width: width, height: 300)
-
-        layout.minimumInteritemSpacing = spacing
-        layout.minimumLineSpacing = spacing
-
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-
-        articlesCollectionView.collectionViewLayout = layout
-    }
     
     // MARK: - Bindings
     private func setupBindings() {
@@ -104,22 +82,12 @@ class HomeView: UIView{
         
         handler?.$errorMessage
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] errorMessage in
-                if let errorMessage = errorMessage {
-                    self?.noDataView.isHidden = false
-                }
+            .sink { [weak self] _ in
+                self?.noDataView.isHidden = false
             }
             .store(in: &cancellables)
     }
-    
-    
-    @objc private func datePickerChanged() {
-        let selectedDate = articleDatePicker.date
-        dateQuery = formatDateToString(date: selectedDate)
-        Task {
-            await handler?.getHomeArticles(searchQuery: searchQuery == "" ? "apple" : searchQuery, fromDate: dateQuery)
-        }
-    }
+      
     
     // MARK: - Date Picker
     private func initDatePicker() {
@@ -141,53 +109,38 @@ class HomeView: UIView{
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         let selectedDate = dateFormatter.string(from: sender.date)
-        print("Selected date: \(selectedDate)")
 
         dateQuery = selectedDate
         
         self.getViewController()?.dismiss(animated: false, completion: nil)
     }
-    // MARK: - Search
-
-    private func setupSearchBar() {
-        articleSearchBar.delegate = self
-        // Combine to observe searchQuery changes
-        $searchQuery
-            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-            .removeDuplicates()
-            .sink { [weak self] newValue in
-                // Use Task to call the async function
-                Task {
-                    let searchText = newValue.isEmpty ? "apple" : newValue
-                    await self?.handler?.getHomeArticles(searchQuery: searchText, fromDate: self?.dateQuery ?? "")
-                }
-            }
-            .store(in: &cancellables)
+    
+    @objc private func datePickerChanged() {
+        let selectedDate = articleDatePicker.date
+        dateQuery = formatDateToString(date: selectedDate)
+        Task {
+            await handler?.getHomeArticles(searchQuery: searchQuery == "" ? "apple" : searchQuery, fromDate: dateQuery)
+        }
     }
-
+    
     private func formatDateToString(date: Date) -> String {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: date)
     }
     
+    
+    // MARK: - Handle Buttons
+
     @IBAction func btnFavourites(_ sender: Any) {
         let favouriteArticlesViewController = FavouriteArticlesViewController()
-//        for i in 0..<handler.homeArticles.count{
-//            var favArticle = ArticleViewData()
-//            favArticle.title = handler.homeArticles[i].title ?? "Not Found"
-//            favArticle.author = handler.homeArticles[i].author ?? "Not Found"
-//            favArticle.content = handler.homeArticles[i].content ?? "Not Found"
-//            favArticle.urlToImage = handler.homeArticles[i].urlToImage ?? "Not Found"
-//            favouriteArticlesViewController.favArticles.append(favArticle)
-//        }
         favouriteArticlesViewController.coordinator = coordinator
         self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
         self.getViewController()?.navigationController?.pushViewController(favouriteArticlesViewController, animated: true)
     }
 }
 
-
-extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate{
+// MARK: - Collection View
+extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if handler?.homeArticles.count ?? 0 == 0{
             self.noDataView.isHidden = false
@@ -227,8 +180,55 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UISear
         self.getViewController()?.navigationController?.pushViewController(articleDetailsViewController, animated: true)
     }
     
+    private func initCollectionView(){
+        articlesCollectionView.delegate = self
+        articlesCollectionView.dataSource = self
+        
+        let customCell = UINib(nibName: "ArticleCollectionViewCell", bundle: nil)
+        articlesCollectionView.register(customCell, forCellWithReuseIdentifier: "articleCollectionViewCell")
+        
+        setupCollectionViewDimensions()
+    }
+    
+    private func setupCollectionViewDimensions(){
+        let layout = UICollectionViewFlowLayout()
+        let numberOfColumns: CGFloat = 2
+        let spacing: CGFloat = 4
+
+        let totalSpacing = (numberOfColumns - 1) * spacing
+        let width = (articlesCollectionView.frame.width - totalSpacing) / numberOfColumns
+        layout.itemSize = CGSize(width: width, height: 300)
+
+        layout.minimumInteritemSpacing = spacing
+        layout.minimumLineSpacing = spacing
+
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+
+        articlesCollectionView.collectionViewLayout = layout
+    }
+    
+
+}
+
+// MARK: - Search
+extension HomeView: UISearchBarDelegate{
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchQuery = searchText
+    }
+    
+    private func setupSearchBar() {
+        articleSearchBar.delegate = self
+        $searchQuery
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] newValue in
+                Task {
+                    let searchText = newValue.isEmpty ? "apple" : newValue
+                    await self?.handler?.getHomeArticles(searchQuery: searchText, fromDate: self?.dateQuery ?? "")
+                }
+            }
+            .store(in: &cancellables)
     }
 
 }

@@ -15,4 +15,5 @@ class NewsRepository : NewsRepositoryProtocol {
         }
         return try await GenericNetworkService.getData(from: url)
     }
+    
 }

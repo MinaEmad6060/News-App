@@ -18,7 +18,7 @@ class HomeScreenViewController: UIViewController {
         customView.frame = view.bounds
         customView.autoresizingMask = [.flexibleWidth, .flexibleHeight] 
         customView.coordinator = coordinator
-        
+    
         view.addSubview(customView)
     }
 

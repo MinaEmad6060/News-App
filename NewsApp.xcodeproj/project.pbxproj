@@ -97,7 +97,6 @@
 			isa = PBXGroup;
 			children = (
 				402CD7EC2CD6828E00702D0C /* view */,
-				402CD7ED2CD6829300702D0C /* handler */,
 			);
 			path = favourite;
 			sourceTree = "<group>";
@@ -137,13 +136,6 @@
 				402CD7EE2CD682AC00702D0C /* FavouriteView.xib */,
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		402CD7ED2CD6829300702D0C /* handler */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = handler;
 			sourceTree = "<group>";
 		};
 		402CD7F42CD6A8DB00702D0C /* Navigation */ = {

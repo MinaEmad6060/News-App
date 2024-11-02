@@ -9,6 +9,7 @@ import Foundation
 
 
 class HomeUseCase: HomeUseCaseProtocol {
+    
     private let repository: NewsRepositoryProtocol
     
     init(repository: NewsRepositoryProtocol = NewsRepository()) {

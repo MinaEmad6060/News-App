@@ -15,7 +15,6 @@ class Coordinator {
     }
 
     func pushViewController<T: UIViewController>(viewController: T) {
-        // Optionally set the coordinator for the view controller
         if var viewControllerWithCoordinator = viewController as? CoordinatorProtocol {
             viewControllerWithCoordinator.coordinator = self
         }

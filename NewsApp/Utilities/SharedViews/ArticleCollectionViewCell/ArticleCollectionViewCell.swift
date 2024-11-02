@@ -14,7 +14,6 @@ class ArticleCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var articleTitle: UILabel!
     @IBOutlet weak var articleAuthor: UILabel!
     @IBOutlet weak var articleDetails: UILabel!
-    
     @IBOutlet weak var bgView: UIView!
     
     override func awakeFromNib() {

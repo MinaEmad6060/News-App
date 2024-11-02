@@ -10,7 +10,6 @@ import UIKit
 class NoDataView: UIView{
     
     // MARK: - Outlets
-    
     @IBOutlet var view: UIView!
     
     // MARK: - Initializer
