@@ -98,7 +98,7 @@ class ArticleView: UIView{
     }
     
     @IBAction func btnAddToFavourites(_ sender: Any) {
-
+        DataBaseHandler.shared.addItem(article: article ?? ArticleViewData())
     }
     
     

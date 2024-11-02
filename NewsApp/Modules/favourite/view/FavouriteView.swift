@@ -60,6 +60,21 @@ class FavouriteView: UIView{
         ])
         
         initCollectionView()
+        initArticlesList()
+    }
+    
+    private func initArticlesList(){
+        let articles = DataBaseHandler.shared.getAllItems()
+        var favArticle = ArticleViewData()
+        for i in 0..<articles.count{
+            favArticle.title = articles[i].title
+            favArticle.author = articles[i].author
+            favArticle.content = articles[i].content
+            favArticle.urlToImage = articles[i].urlToImage
+            self.favArticles.append(favArticle)
+            print("articles[\(i)] \(articles[i].author ?? "none")")
+        }
+        articlesCollectionView.reloadData()
     }
     
     private func initCollectionView(){

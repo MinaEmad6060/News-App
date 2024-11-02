@@ -13,6 +13,9 @@
 		402CD7EF2CD682AC00702D0C /* FavouriteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402CD7EE2CD682AC00702D0C /* FavouriteView.xib */; };
 		402CD7F12CD682B300702D0C /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7F02CD682B300702D0C /* FavouriteView.swift */; };
 		402CD7F32CD6864100702D0C /* FavouriteArticlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7F22CD6864100702D0C /* FavouriteArticlesViewController.swift */; };
+		402CD7F72CD6A8FB00702D0C /* DataBaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7F62CD6A8FB00702D0C /* DataBaseHandler.swift */; };
+		402CD7FA2CD6AE4300702D0C /* FavouriteArticle+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7F82CD6AE4300702D0C /* FavouriteArticle+CoreDataClass.swift */; };
+		402CD7FB2CD6AE4300702D0C /* FavouriteArticle+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7F92CD6AE4300702D0C /* FavouriteArticle+CoreDataProperties.swift */; };
 		40472CCD2CD5BAC800367B66 /* ArticleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40472CCB2CD5BAC800367B66 /* ArticleCollectionViewCell.swift */; };
 		40472CCE2CD5BAC800367B66 /* ArticleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40472CCC2CD5BAC800367B66 /* ArticleCollectionViewCell.xib */; };
 		40472CD12CD5D03100367B66 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 40472CD02CD5D03100367B66 /* Kingfisher */; };
@@ -45,6 +48,9 @@
 		402CD7EE2CD682AC00702D0C /* FavouriteView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteView.xib; sourceTree = "<group>"; };
 		402CD7F02CD682B300702D0C /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
 		402CD7F22CD6864100702D0C /* FavouriteArticlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteArticlesViewController.swift; sourceTree = "<group>"; };
+		402CD7F62CD6A8FB00702D0C /* DataBaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHandler.swift; sourceTree = "<group>"; };
+		402CD7F82CD6AE4300702D0C /* FavouriteArticle+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouriteArticle+CoreDataClass.swift"; sourceTree = "<group>"; };
+		402CD7F92CD6AE4300702D0C /* FavouriteArticle+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouriteArticle+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		40472CCB2CD5BAC800367B66 /* ArticleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewCell.swift; sourceTree = "<group>"; };
 		40472CCC2CD5BAC800367B66 /* ArticleCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleCollectionViewCell.xib; sourceTree = "<group>"; };
 		40F668312CD586D7004A4C97 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +140,24 @@
 			children = (
 			);
 			path = handler;
+			sourceTree = "<group>";
+		};
+		402CD7F42CD6A8DB00702D0C /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				40F6686C2CD596D2004A4C97 /* Coordinator.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		402CD7F52CD6A8E700702D0C /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				402CD7F62CD6A8FB00702D0C /* DataBaseHandler.swift */,
+				402CD7F82CD6AE4300702D0C /* FavouriteArticle+CoreDataClass.swift */,
+				402CD7F92CD6AE4300702D0C /* FavouriteArticle+CoreDataProperties.swift */,
+			);
+			path = DataBase;
 			sourceTree = "<group>";
 		};
 		40472CCA2CD5BA8700367B66 /* SharedViews */ = {
@@ -266,7 +290,8 @@
 		40F6686A2CD5954B004A4C97 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				40F6686C2CD596D2004A4C97 /* Coordinator.swift */,
+				402CD7F42CD6A8DB00702D0C /* Navigation */,
+				402CD7F52CD6A8E700702D0C /* DataBase */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -353,6 +378,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				40472CCD2CD5BAC800367B66 /* ArticleCollectionViewCell.swift in Sources */,
+				402CD7FA2CD6AE4300702D0C /* FavouriteArticle+CoreDataClass.swift in Sources */,
+				402CD7FB2CD6AE4300702D0C /* FavouriteArticle+CoreDataProperties.swift in Sources */,
 				40F6686D2CD596D2004A4C97 /* Coordinator.swift in Sources */,
 				402CD7F12CD682B300702D0C /* FavouriteView.swift in Sources */,
 				40F668572CD5902C004A4C97 /* NewsEndpoint.swift in Sources */,
@@ -365,6 +392,7 @@
 				40F6685A2CD59141004A4C97 /* NewsRepositoryProtocol.swift in Sources */,
 				40F6684D2CD58AED004A4C97 /* News.swift in Sources */,
 				40F6687F2CD5AD08004A4C97 /* HomeScreenViewController.swift in Sources */,
+				402CD7F72CD6A8FB00702D0C /* DataBaseHandler.swift in Sources */,
 				402CD7F32CD6864100702D0C /* FavouriteArticlesViewController.swift in Sources */,
 				40F6685F2CD591F9004A4C97 /* HomeUseCaseProtocol.swift in Sources */,
 				40F668672CD59346004A4C97 /* HomeHandler.swift in Sources */,
