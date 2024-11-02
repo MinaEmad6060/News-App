@@ -27,14 +27,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         coordinator = Coordinator(navigationController: navigationController)
 
         // Create an initial view controller and set the coordinator
-        let initialViewController = HomeViewController()
+        let initialViewController = HomeScreenViewController()
         initialViewController.coordinator = coordinator // Set the coordinator
         
         coordinator?.pushViewController(viewController: initialViewController)
 
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
-        
         
     }
 
