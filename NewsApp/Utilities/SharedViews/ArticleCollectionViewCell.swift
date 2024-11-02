@@ -21,7 +21,8 @@ class ArticleCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         bgView.layer.cornerRadius = 11.36
         articleImage.layer.cornerRadius = 11.36
-        articleAuthor.layer.cornerRadius = 13.25
+        articleAuthor.layer.cornerRadius = 10
+        articleAuthor.clipsToBounds = true
     }
 
 }
