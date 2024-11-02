@@ -14,7 +14,6 @@ class HomeView: UIView{
     
     // MARK: - Outlets
     @IBOutlet var view: UIView!
-    @IBOutlet weak var testLabel: UILabel!
     @IBOutlet weak var articlesCollectionView: UICollectionView!
     
     // MARK: - Properties

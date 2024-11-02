@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		402CD7E62CD672BB00702D0C /* ArticleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402CD7E52CD672BB00702D0C /* ArticleView.xib */; };
+		402CD7E82CD672C500702D0C /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7E72CD672C500702D0C /* ArticleView.swift */; };
+		402CD7EA2CD6745A00702D0C /* ArticleDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7E92CD6745A00702D0C /* ArticleDetailsViewController.swift */; };
 		40472CCD2CD5BAC800367B66 /* ArticleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40472CCB2CD5BAC800367B66 /* ArticleCollectionViewCell.swift */; };
 		40472CCE2CD5BAC800367B66 /* ArticleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40472CCC2CD5BAC800367B66 /* ArticleCollectionViewCell.xib */; };
 		40472CD12CD5D03100367B66 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 40472CD02CD5D03100367B66 /* Kingfisher */; };
@@ -33,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		402CD7E52CD672BB00702D0C /* ArticleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleView.xib; sourceTree = "<group>"; };
+		402CD7E72CD672C500702D0C /* ArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
+		402CD7E92CD6745A00702D0C /* ArticleDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailsViewController.swift; sourceTree = "<group>"; };
 		40472CCB2CD5BAC800367B66 /* ArticleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewCell.swift; sourceTree = "<group>"; };
 		40472CCC2CD5BAC800367B66 /* ArticleCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleCollectionViewCell.xib; sourceTree = "<group>"; };
 		40F668312CD586D7004A4C97 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +77,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		402CD7E12CD6723000702D0C /* favourite */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = favourite;
+			sourceTree = "<group>";
+		};
+		402CD7E22CD6724400702D0C /* articleDetails */ = {
+			isa = PBXGroup;
+			children = (
+				402CD7E42CD6728700702D0C /* view */,
+			);
+			path = articleDetails;
+			sourceTree = "<group>";
+		};
+		402CD7E42CD6728700702D0C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				402CD7E92CD6745A00702D0C /* ArticleDetailsViewController.swift */,
+				402CD7E72CD672C500702D0C /* ArticleView.swift */,
+				402CD7E52CD672BB00702D0C /* ArticleView.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		40472CCA2CD5BA8700367B66 /* SharedViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				40F668632CD592EA004A4C97 /* home */,
+				402CD7E22CD6724400702D0C /* articleDetails */,
+				402CD7E12CD6723000702D0C /* favourite */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -272,6 +305,7 @@
 				40F668412CD586D8004A4C97 /* Assets.xcassets in Resources */,
 				40F6687B2CD5AC83004A4C97 /* HomeView.xib in Resources */,
 				40472CCE2CD5BAC800367B66 /* ArticleCollectionViewCell.xib in Resources */,
+				402CD7E62CD672BB00702D0C /* ArticleView.xib in Resources */,
 				40F668442CD586D8004A4C97 /* Base in Resources */,
 				40F6683C2CD586D7004A4C97 /* Base in Resources */,
 			);
@@ -287,10 +321,12 @@
 				40472CCD2CD5BAC800367B66 /* ArticleCollectionViewCell.swift in Sources */,
 				40F6686D2CD596D2004A4C97 /* Coordinator.swift in Sources */,
 				40F668572CD5902C004A4C97 /* NewsEndpoint.swift in Sources */,
+				402CD7EA2CD6745A00702D0C /* ArticleDetailsViewController.swift in Sources */,
 				40F668552CD5901C004A4C97 /* NewsURL.swift in Sources */,
 				40F668532CD58FA4004A4C97 /* CSError.swift in Sources */,
 				40F668352CD586D7004A4C97 /* AppDelegate.swift in Sources */,
 				40F6683F2CD586D7004A4C97 /* NewsApp.xcdatamodeld in Sources */,
+				402CD7E82CD672C500702D0C /* ArticleView.swift in Sources */,
 				40F6685A2CD59141004A4C97 /* NewsRepositoryProtocol.swift in Sources */,
 				40F6684D2CD58AED004A4C97 /* News.swift in Sources */,
 				40F6687F2CD5AD08004A4C97 /* HomeScreenViewController.swift in Sources */,

@@ -23,7 +23,7 @@
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DWQ-SQ-MtK">
                         <rect key="frame" x="8" y="17.666666666666657" width="167" height="124"/>
-                        <color key="tintColor" red="0.0039516971450000004" green="0.11366230989999999" blue="0.32523137330000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.0039215686274509803" green="0.11372549019607843" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="127" id="KWA-Bn-7nL"/>
                         </constraints>
