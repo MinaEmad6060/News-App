@@ -4,12 +4,12 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeView" customModule="NewsApp" customModuleProvider="target">
             <connections>
+                <outlet property="articlesCollectionView" destination="Qj2-yl-pmj" id="ReT-ii-qqR"/>
                 <outlet property="view" destination="iN0-l3-epB" id="noA-YY-FVs"/>
             </connections>
         </placeholder>
@@ -39,16 +39,18 @@
                                     <buttonConfiguration key="configuration" style="plain" image="love"/>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="52" id="pai-ES-ETV"/>
                             </constraints>
                         </stackView>
                         <searchBar contentMode="redraw" text="" placeholder="Search for news" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cjF-t6-v7J">
-                            <rect key="frame" x="0.0" y="60" width="361" height="70"/>
+                            <rect key="frame" x="0.0" y="60" width="361" height="60"/>
+                            <color key="backgroundColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="70" id="9V3-5h-9nj"/>
+                                <constraint firstAttribute="height" constant="60" id="9V3-5h-9nj"/>
                             </constraints>
+                            <color key="barTintColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <textInputTraits key="textInputTraits"/>
                             <scopeButtonTitles>
                                 <string>Title</string>
@@ -56,7 +58,7 @@
                             </scopeButtonTitles>
                         </searchBar>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qgx-Ya-exb">
-                            <rect key="frame" x="0.0" y="138" width="361" height="44"/>
+                            <rect key="frame" x="0.0" y="128" width="361" height="44"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vz1-Ce-dVq">
                                     <rect key="frame" x="0.0" y="0.0" width="226" height="44"/>
@@ -71,14 +73,14 @@
                                     </constraints>
                                 </datePicker>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="Eza-4W-yXn"/>
                             </constraints>
                         </stackView>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Qj2-yl-pmj">
-                            <rect key="frame" x="0.0" y="190" width="361" height="569"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Qj2-yl-pmj">
+                            <rect key="frame" x="0.0" y="180" width="361" height="579"/>
+                            <color key="backgroundColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JnD-04-n3g">
                                 <size key="itemSize" width="128" height="128"/>
                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -87,11 +89,11 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="D3j-yW-NXU" secondAttribute="trailing" constant="16" id="0GI-la-ytw"/>
                 <constraint firstItem="D3j-yW-NXU" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="s8t-Lz-V1g"/>
@@ -103,8 +105,5 @@
     </objects>
     <resources>
         <image name="love" width="29" height="29"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

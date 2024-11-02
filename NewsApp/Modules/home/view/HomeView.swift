@@ -15,6 +15,9 @@ class HomeView: UIView{
     
     @IBOutlet weak var testLabel: UILabel!
     
+    @IBOutlet weak var articlesCollectionView: UICollectionView!
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
@@ -42,5 +45,50 @@ class HomeView: UIView{
             view.topAnchor.constraint(equalTo: self.topAnchor),
             view.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+        
+        initCollectionView()
     }
+    
+    private func initCollectionView(){
+        articlesCollectionView.delegate = self
+        articlesCollectionView.dataSource = self
+        
+        let customCell = UINib(nibName: "ArticleCollectionViewCell", bundle: nil)
+        articlesCollectionView.register(customCell, forCellWithReuseIdentifier: "articleCollectionViewCell")
+        
+        let layout = UICollectionViewFlowLayout()
+        let numberOfColumns: CGFloat = 2
+        let spacing: CGFloat = 10
+
+        // Calculate item size for 2 columns
+        let totalSpacing = (numberOfColumns - 1) * spacing // Total space between cells
+        let width = (articlesCollectionView.frame.width - totalSpacing) / numberOfColumns
+        layout.itemSize = CGSize(width: width, height: width) // Square cells
+
+        // Set spacing between cells
+        layout.minimumInteritemSpacing = spacing
+        layout.minimumLineSpacing = spacing
+        layout.itemSize = CGSize(width: width, height: 300)
+
+        // Set section insets (optional)
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+
+        articlesCollectionView.collectionViewLayout = layout
+    }
+}
+
+
+extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 16
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "articleCollectionViewCell", for: indexPath) as! ArticleCollectionViewCell
+        
+        
+        return cell
+    }
+    
+    
 }
