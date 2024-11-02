@@ -12,6 +12,7 @@
                 <outlet property="articleDatePicker" destination="Ia5-Ta-4he" id="gsY-Df-0QE"/>
                 <outlet property="articleSearchBar" destination="cjF-t6-v7J" id="oDP-KJ-f9D"/>
                 <outlet property="articlesCollectionView" destination="Qj2-yl-pmj" id="ReT-ii-qqR"/>
+                <outlet property="noDataView" destination="lui-XV-d1H" id="FuA-SX-NpD"/>
                 <outlet property="view" destination="iN0-l3-epB" id="noA-YY-FVs"/>
             </connections>
         </placeholder>
@@ -96,11 +97,20 @@
                     </subviews>
                     <color key="backgroundColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lui-XV-d1H" customClass="NoDataView" customModule="NewsApp" customModuleProvider="target">
+                    <rect key="frame" x="96.666666666666686" y="326" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="IO9-JK-iyc"/>
+                        <constraint firstAttribute="height" constant="200" id="IuM-eX-raJ"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="0.9503727555" green="0.9487760663" blue="0.96827858690000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="D3j-yW-NXU" secondAttribute="trailing" constant="16" id="0GI-la-ytw"/>
+                <constraint firstItem="lui-XV-d1H" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="IMS-Up-ip3"/>
+                <constraint firstItem="lui-XV-d1H" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="pmj-6L-e6I"/>
                 <constraint firstItem="D3j-yW-NXU" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="s8t-Lz-V1g"/>
                 <constraint firstItem="D3j-yW-NXU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="tLc-wG-FGu"/>
                 <constraint firstItem="D3j-yW-NXU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="zAQ-JH-epy"/>

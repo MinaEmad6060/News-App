@@ -16,6 +16,8 @@
 		402CD7F72CD6A8FB00702D0C /* DataBaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7F62CD6A8FB00702D0C /* DataBaseHandler.swift */; };
 		402CD7FA2CD6AE4300702D0C /* FavouriteArticle+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7F82CD6AE4300702D0C /* FavouriteArticle+CoreDataClass.swift */; };
 		402CD7FB2CD6AE4300702D0C /* FavouriteArticle+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD7F92CD6AE4300702D0C /* FavouriteArticle+CoreDataProperties.swift */; };
+		402CD7FF2CD6BC9300702D0C /* NoDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 402CD7FE2CD6BC9300702D0C /* NoDataView.xib */; };
+		402CD8012CD6BCA200702D0C /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CD8002CD6BCA200702D0C /* NoDataView.swift */; };
 		40472CCD2CD5BAC800367B66 /* ArticleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40472CCB2CD5BAC800367B66 /* ArticleCollectionViewCell.swift */; };
 		40472CCE2CD5BAC800367B66 /* ArticleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40472CCC2CD5BAC800367B66 /* ArticleCollectionViewCell.xib */; };
 		40472CD12CD5D03100367B66 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 40472CD02CD5D03100367B66 /* Kingfisher */; };
@@ -51,6 +53,8 @@
 		402CD7F62CD6A8FB00702D0C /* DataBaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHandler.swift; sourceTree = "<group>"; };
 		402CD7F82CD6AE4300702D0C /* FavouriteArticle+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouriteArticle+CoreDataClass.swift"; sourceTree = "<group>"; };
 		402CD7F92CD6AE4300702D0C /* FavouriteArticle+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavouriteArticle+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		402CD7FE2CD6BC9300702D0C /* NoDataView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataView.xib; sourceTree = "<group>"; };
+		402CD8002CD6BCA200702D0C /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		40472CCB2CD5BAC800367B66 /* ArticleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCollectionViewCell.swift; sourceTree = "<group>"; };
 		40472CCC2CD5BAC800367B66 /* ArticleCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleCollectionViewCell.xib; sourceTree = "<group>"; };
 		40F668312CD586D7004A4C97 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,11 +164,29 @@
 			path = DataBase;
 			sourceTree = "<group>";
 		};
-		40472CCA2CD5BA8700367B66 /* SharedViews */ = {
+		402CD7FC2CD6BC6E00702D0C /* ArticleCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
 				40472CCB2CD5BAC800367B66 /* ArticleCollectionViewCell.swift */,
 				40472CCC2CD5BAC800367B66 /* ArticleCollectionViewCell.xib */,
+			);
+			path = ArticleCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		402CD7FD2CD6BC7800702D0C /* NoDataView */ = {
+			isa = PBXGroup;
+			children = (
+				402CD8002CD6BCA200702D0C /* NoDataView.swift */,
+				402CD7FE2CD6BC9300702D0C /* NoDataView.xib */,
+			);
+			path = NoDataView;
+			sourceTree = "<group>";
+		};
+		40472CCA2CD5BA8700367B66 /* SharedViews */ = {
+			isa = PBXGroup;
+			children = (
+				402CD7FC2CD6BC6E00702D0C /* ArticleCollectionViewCell */,
+				402CD7FD2CD6BC7800702D0C /* NoDataView */,
 			);
 			path = SharedViews;
 			sourceTree = "<group>";
@@ -361,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40F668412CD586D8004A4C97 /* Assets.xcassets in Resources */,
+				402CD7FF2CD6BC9300702D0C /* NoDataView.xib in Resources */,
 				40F6687B2CD5AC83004A4C97 /* HomeView.xib in Resources */,
 				40472CCE2CD5BAC800367B66 /* ArticleCollectionViewCell.xib in Resources */,
 				402CD7E62CD672BB00702D0C /* ArticleView.xib in Resources */,
@@ -392,6 +415,7 @@
 				40F6685A2CD59141004A4C97 /* NewsRepositoryProtocol.swift in Sources */,
 				40F6684D2CD58AED004A4C97 /* News.swift in Sources */,
 				40F6687F2CD5AD08004A4C97 /* HomeScreenViewController.swift in Sources */,
+				402CD8012CD6BCA200702D0C /* NoDataView.swift in Sources */,
 				402CD7F72CD6A8FB00702D0C /* DataBaseHandler.swift in Sources */,
 				402CD7F32CD6864100702D0C /* FavouriteArticlesViewController.swift in Sources */,
 				40F6685F2CD591F9004A4C97 /* HomeUseCaseProtocol.swift in Sources */,

@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavouriteView" customModule="NewsApp" customModuleProvider="target">
             <connections>
                 <outlet property="articlesCollectionView" destination="3HK-ye-vGT" id="4uk-I0-4d6"/>
+                <outlet property="noDataView" destination="5Dd-qe-8Z6" id="ZxT-ew-oAv"/>
                 <outlet property="view" destination="iN0-l3-epB" id="aT4-md-1bd"/>
             </connections>
         </placeholder>
@@ -54,11 +55,20 @@
                         </collectionView>
                     </subviews>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Dd-qe-8Z6" customClass="NoDataView" customModule="NewsApp" customModuleProvider="target">
+                    <rect key="frame" x="96.666666666666686" y="326" width="200" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="tPw-PZ-63E"/>
+                        <constraint firstAttribute="width" constant="200" id="vpe-SU-SMv"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="bSD-Zh-Ap6" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="109-td-iac"/>
+                <constraint firstItem="5Dd-qe-8Z6" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kd3-sC-JbH"/>
+                <constraint firstItem="5Dd-qe-8Z6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="lCn-EB-KQq"/>
                 <constraint firstItem="bSD-Zh-Ap6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="lQB-L0-gNh"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bSD-Zh-Ap6" secondAttribute="trailing" constant="16" id="naw-Hx-l0P"/>
                 <constraint firstItem="bSD-Zh-Ap6" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="reO-h4-xff"/>

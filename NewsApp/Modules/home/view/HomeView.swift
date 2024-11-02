@@ -17,6 +17,8 @@ class HomeView: UIView{
     @IBOutlet weak var articlesCollectionView: UICollectionView!
     @IBOutlet weak var articleSearchBar: UISearchBar!
     @IBOutlet weak var articleDatePicker: UIDatePicker!
+
+    @IBOutlet weak var noDataView: NoDataView!
     
     // MARK: - Properties
     private let logger = Logger(subsystem: "com.NewsApp.View", category: "View")
@@ -102,12 +104,10 @@ class HomeView: UIView{
         
         handler?.$errorMessage
             .receive(on: DispatchQueue.main)
-            .sink { /*[weak self]*/ errorMessage in
-//                if let errorMessage = errorMessage {
-//                    self?.articlesCollectionView.isHidden = true
-//                } else {
-//                    self?.articlesCollectionView.isHidden = false
-//                }
+            .sink { [weak self] errorMessage in
+                if let errorMessage = errorMessage {
+                    self?.noDataView.isHidden = false
+                }
             }
             .store(in: &cancellables)
     }
@@ -189,6 +189,11 @@ class HomeView: UIView{
 
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if handler?.homeArticles.count ?? 0 == 0{
+            self.noDataView.isHidden = false
+        }else{
+            self.noDataView.isHidden = true
+        }
         return handler?.homeArticles.count ?? 0
     }
     

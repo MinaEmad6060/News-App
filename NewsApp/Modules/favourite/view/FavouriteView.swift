@@ -15,6 +15,7 @@ class FavouriteView: UIView{
     // MARK: - Outlets
     @IBOutlet var view: UIView!
     @IBOutlet weak var articlesCollectionView: UICollectionView!
+    @IBOutlet weak var noDataView: NoDataView!
     
     // MARK: - Properties
     private let logger = Logger(subsystem: "com.NewsApp.View", category: "View")
@@ -111,19 +112,16 @@ class FavouriteView: UIView{
         coordinator?.pop()
     }
     
-    
-    @IBAction func btnFavourites(_ sender: Any) {
-//        let articleDetailsViewController = ArticleDetailsViewController()
-//        articleDetailsViewController.coordinator = coordinator
-//        self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
-//        self.getViewController()?.navigationController?.pushViewController(articleDetailsViewController, animated: true)
-    }
 }
 
 
 extension FavouriteView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.logger.info("homeArticles-count \(self.favArticles.count)")
+        if self.favArticles.count == 0{
+            noDataView.isHidden = false
+        }else{
+            noDataView.isHidden = true
+        }
         return self.favArticles.count
     }
     
