@@ -10,11 +10,12 @@ import UIKit
 class ArticleDetailsViewController: UIViewController {
 
     var coordinator: Coordinator!
+    var article = ArticleViewData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let customView = ArticleView()
+        let customView = ArticleView(article: article)
         customView.frame = view.bounds
         customView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         customView.coordinator = coordinator

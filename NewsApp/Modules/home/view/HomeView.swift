@@ -21,7 +21,8 @@ class HomeView: UIView{
     private var handler = HomeHandler()
     private var cancellables = Set<AnyCancellable>()
     var coordinator: Coordinator?
-
+    var article = ArticleViewData()
+    
     // MARK: - Initializer
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -107,16 +108,11 @@ class HomeView: UIView{
 
     
     @IBAction func btnFavourites(_ sender: Any) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        if let viewController1 = storyboard.instantiateViewController(withIdentifier: "ViewController1") as? ViewController1 {
-//            viewController1.coordinator = coordinator
-//            
-//            self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
-//            self.getViewController()?.navigationController?.pushViewController(viewController1, animated: true)
-//        }
+//        let articleDetailsViewController = ArticleDetailsViewController()
+//        articleDetailsViewController.coordinator = coordinator
+//        self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
+//        self.getViewController()?.navigationController?.pushViewController(articleDetailsViewController, animated: true)
     }
-    
-    
 }
 
 
@@ -138,13 +134,31 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
         } else {
             cell.articleImage.image = UIImage(systemName: "folder.fill")
         }
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        article.title = handler.homeArticles[indexPath.item].title ?? "Not Found"
+        article.author = handler.homeArticles[indexPath.item].author ?? "Not Found"
+        article.content = handler.homeArticles[indexPath.item].content ?? "Not Found"
+        article.urlToImage = handler.homeArticles[indexPath.item].urlToImage ?? "Not Found"
+        
+        let articleDetailsViewController = ArticleDetailsViewController()
+        articleDetailsViewController.article = article
+        articleDetailsViewController.coordinator = coordinator
+        self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.getViewController()?.navigationController?.pushViewController(articleDetailsViewController, animated: true)
     }
 
+}
+
+struct ArticleViewData{
+    var author: String?
+    var title: String?
+    var urlToImage: String?
+    var content: String?
 }
 
 extension UIView {

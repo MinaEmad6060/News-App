@@ -11,7 +11,8 @@ import os
 
 
 extension HomeView {
-
+    
+    @MainActor
     class HomeHandler: ObservableObject {
         //MARK: - PROPERTIES
         private let logger = Logger(subsystem: "com.NewsApp.networking", category: "HomeHandler")

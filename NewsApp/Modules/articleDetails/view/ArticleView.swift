@@ -13,17 +13,20 @@ import Kingfisher
 class ArticleView: UIView{
     
     // MARK: - Outlets
-    
     @IBOutlet var view: UIView!
     @IBOutlet weak var mainBgView: UIView!
     
+    @IBOutlet weak var articleImage: UIImageView!
     @IBOutlet weak var articleTitle: UILabel!
     @IBOutlet weak var articleAuthor: UILabel!
     @IBOutlet weak var articleDetails: UITextView!
+    
     @IBOutlet weak var btnAddToFavouritesOutlet: UIButton!
+    
     // MARK: - Properties
     private let logger = Logger(subsystem: "com.NewsApp.View", category: "View")
     var coordinator: Coordinator?
+    var article: ArticleViewData?
 
 
     // MARK: - Initializer
@@ -37,6 +40,14 @@ class ArticleView: UIView{
         super.init(frame: frame)
         commonInit()
         setupUI()
+    }
+    
+    init(article: ArticleViewData) {
+        self.article = article
+        super.init(frame: .zero)
+        commonInit()
+        setupUI()
+        print("self.article \(self.article?.title ?? "none")")
     }
     
     private func commonInit() {
@@ -61,13 +72,30 @@ class ArticleView: UIView{
     
     private func setupUI(){
         mainBgView.layer.cornerRadius = 24
-        articleAuthor.layer.cornerRadius = 26
-        btnAddToFavouritesOutlet.layer.cornerRadius = 35
+        articleImage.layer.cornerRadius = 20
+        articleAuthor.layer.cornerRadius = 20
+        btnAddToFavouritesOutlet.layer.cornerRadius = 26
+        articleDetails.isEditable = false
+        
+        articleTitle.text = article?.title
+        articleAuthor.text = article?.author
+        articleAuthor.clipsToBounds = true
+        articleDetails.text = article?.content
+        
+        if let urlString = article?.urlToImage,
+           let url = URL(string: urlString) {
+            articleImage.kf.setImage(with: url)
+        } else {
+            articleImage.image = UIImage(systemName: "folder.fill")
+        }
     }
 
     
     
    
+    @IBAction func btnBack(_ sender: Any) {
+        coordinator?.pop()
+    }
     
     @IBAction func btnAddToFavourites(_ sender: Any) {
 
