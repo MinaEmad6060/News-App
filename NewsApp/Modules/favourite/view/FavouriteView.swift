@@ -1,5 +1,5 @@
 //
-//  AllNewsView.swift
+//  FavouriteView.swift
 //  NewsApp
 //
 //  Created by Mina Emad on 02/11/2024.
@@ -10,7 +10,7 @@ import Combine
 import os
 import Kingfisher
 
-class HomeView: UIView{
+class FavouriteView: UIView{
     
     // MARK: - Outlets
     @IBOutlet var view: UIView!
@@ -18,26 +18,32 @@ class HomeView: UIView{
     
     // MARK: - Properties
     private let logger = Logger(subsystem: "com.NewsApp.View", category: "View")
-    private var handler = HomeHandler()
     private var cancellables = Set<AnyCancellable>()
     var coordinator: Coordinator?
     var article = ArticleViewData()
+    var favArticles = [ArticleViewData]()
     
     // MARK: - Initializer
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-        setupBindings()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
-        setupBindings()
+    }
+    
+    init(favArticles: [ArticleViewData]) {
+        self.favArticles = favArticles
+        super.init(frame: .zero)
+        commonInit()
+        articlesCollectionView.reloadData()
+        print("self.favArticles \(self.favArticles.count)")
     }
     
     private func commonInit() {
-        let nib = UINib(nibName: "HomeView", bundle: nil)
+        let nib = UINib(nibName: "FavouriteView", bundle: nil)
         guard let loadedView = nib.instantiate(withOwner: self, options: nil).first as? UIView else {
             return
         }
@@ -84,59 +90,35 @@ class HomeView: UIView{
         articlesCollectionView.collectionViewLayout = layout
     }
     
-    // MARK: - Bindings
-    private func setupBindings() {
-        handler.$homeArticles
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.articlesCollectionView.reloadData()
-            }
-            .store(in: &cancellables)
-        
-        handler.$errorMessage
-            .receive(on: DispatchQueue.main)
-            .sink { /*[weak self]*/ errorMessage in
-//                if let errorMessage = errorMessage {
-//                    self?.articlesCollectionView.isHidden = true
-//                } else {
-//                    self?.articlesCollectionView.isHidden = false
-//                }
-            }
-            .store(in: &cancellables)
+  
+    
+    @IBAction func btnBack(_ sender: Any) {
+        coordinator?.pop()
     }
     
-
     
     @IBAction func btnFavourites(_ sender: Any) {
-        let favouriteArticlesViewController = FavouriteArticlesViewController()
-//        for i in 0..<handler.homeArticles.count{
-//            var favArticle = ArticleViewData()
-//            favArticle.title = handler.homeArticles[i].title ?? "Not Found"
-//            favArticle.author = handler.homeArticles[i].author ?? "Not Found"
-//            favArticle.content = handler.homeArticles[i].content ?? "Not Found"
-//            favArticle.urlToImage = handler.homeArticles[i].urlToImage ?? "Not Found"
-//            favouriteArticlesViewController.favArticles.append(favArticle)
-//        }
-        favouriteArticlesViewController.coordinator = coordinator
-        self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.getViewController()?.navigationController?.pushViewController(favouriteArticlesViewController, animated: true)
+//        let articleDetailsViewController = ArticleDetailsViewController()
+//        articleDetailsViewController.coordinator = coordinator
+//        self.getViewController()?.navigationController?.setNavigationBarHidden(true, animated: false)
+//        self.getViewController()?.navigationController?.pushViewController(articleDetailsViewController, animated: true)
     }
 }
 
 
-extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
+extension FavouriteView: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.logger.info("homeArticles-count \(self.handler.homeArticles.count)")
-        return handler.homeArticles.count
+        self.logger.info("homeArticles-count \(self.favArticles.count)")
+        return self.favArticles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "articleCollectionViewCell", for: indexPath) as! ArticleCollectionViewCell
         
-        cell.articleTitle.text = handler.homeArticles[indexPath.item].title ?? "Not Found"
-        cell.articleAuthor.text = handler.homeArticles[indexPath.item].author ?? "Not Found"
-        cell.articleDetails.text = handler.homeArticles[indexPath.item].content ?? "Not Found"
-        if let urlString = handler.homeArticles[indexPath.row].urlToImage,
+        cell.articleTitle.text = favArticles[indexPath.item].title ?? "Not Found"
+        cell.articleAuthor.text = favArticles[indexPath.item].author ?? "Not Found"
+        cell.articleDetails.text = favArticles[indexPath.item].content ?? "Not Found"
+        if let urlString = favArticles[indexPath.row].urlToImage,
            let url = URL(string: urlString) {
             cell.articleImage.kf.setImage(with: url)
         } else {
@@ -148,10 +130,10 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        article.title = handler.homeArticles[indexPath.item].title ?? "Not Found"
-        article.author = handler.homeArticles[indexPath.item].author ?? "Not Found"
-        article.content = handler.homeArticles[indexPath.item].content ?? "Not Found"
-        article.urlToImage = handler.homeArticles[indexPath.item].urlToImage ?? "Not Found"
+        article.title = favArticles[indexPath.item].title ?? "Not Found"
+        article.author = favArticles[indexPath.item].author ?? "Not Found"
+        article.content = favArticles[indexPath.item].content ?? "Not Found"
+        article.urlToImage = favArticles[indexPath.item].urlToImage ?? "Not Found"
         
         let articleDetailsViewController = ArticleDetailsViewController()
         articleDetailsViewController.article = article
@@ -160,23 +142,4 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource{
         self.getViewController()?.navigationController?.pushViewController(articleDetailsViewController, animated: true)
     }
 
-}
-
-struct ArticleViewData{
-    var author: String?
-    var title: String?
-    var urlToImage: String?
-    var content: String?
-}
-
-extension UIView {
-    func getViewController() -> UIViewController? {
-        if let nextResponder = self.next as? UIViewController {
-            return nextResponder
-        } else if let nextResponder = self.next as? UIView {
-            return nextResponder.getViewController()
-        } else {
-            return nil
-        }
-    }
 }
